@@ -484,6 +484,40 @@ h1 span {
   transition: transform 300ms ease;
 }
 
+.product-placeholder,
+.dialog-image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--muted);
+  background-color: #252821;
+  background-image: linear-gradient(rgba(240, 241, 233, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(240, 241, 233, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.product-placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1.04;
+}
+
+.product-placeholder span,
+.dialog-image-placeholder span {
+  color: var(--cyan);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.product-placeholder strong,
+.dialog-image-placeholder strong {
+  color: var(--acid);
+  font-family: var(--display);
+  font-size: 38px;
+  line-height: 1;
+}
+
 .product-card:hover .product-image {
   transform: scale(1.035);
 }
@@ -694,6 +728,12 @@ h1 span {
   aspect-ratio: 1.7;
   object-fit: cover;
   background: var(--ink-soft);
+}
+
+.dialog-image-placeholder {
+  width: 100%;
+  min-height: 240px;
+  aspect-ratio: 1.7;
 }
 
 .dialog-copy {
