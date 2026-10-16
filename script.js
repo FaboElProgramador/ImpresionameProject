@@ -24,6 +24,7 @@ const products = [
     name: "Portalentes calavera",
     category: "utilidad",
     categoryLabel: "Organización",
+    tags: ["soportes"],
     image: "img_asset/portalentescalavera.jpg",
     alt: "Portalentes impreso en 3D con forma de calavera",
     description: "Un soporte con forma de calavera para tener tus lentes a mano y a la vista.",
@@ -44,6 +45,7 @@ const products = [
     name: "Anillo lanzador de agua",
     category: "accesorios",
     categoryLabel: "Juguetes",
+    tags: ["juguetes"],
     image: "img_asset/AnilloAgua.jpg",
     alt: "Anillo de juguete con mecanismo para lanzar agua",
     description: "Anillo de juguete con un pequeño mecanismo lanzador de agua.",
@@ -53,7 +55,8 @@ const products = [
     id: "06",
     name: "Árboles decorativos",
     category: "decoracion",
-    categoryLabel: "Decoración",
+    categoryLabel: "Navidad / Halloween",
+    tags: ["navidad-halloween"],
     image: "img_asset/ArbolNavidadDeco.webp",
     alt: "Árboles decorativos navideños impresos en 3D",
     description: "Árboles decorativos navideños en distintos tamaños y colores.",
@@ -64,6 +67,7 @@ const products = [
     name: "Cubo 3×3 Ingenio",
     category: "accesorios",
     categoryLabel: "Juguetes",
+    tags: ["juguetes"],
     image: "img_asset/Cubo3x3Ingenio.webp",
     alt: "Piezas de cubo de ingenio impresas en varios colores",
     description: "Cubo de ingenio impreso en 3D, compuesto por piezas articuladas.",
@@ -73,7 +77,8 @@ const products = [
     id: "08",
     name: "Fantasma selfie",
     category: "decoracion",
-    categoryLabel: "Decoración",
+    categoryLabel: "Navidad / Halloween",
+    tags: ["navidad-halloween"],
     image: "img_asset/FantasmaSelfie.webp",
     alt: "Figura de fantasma sosteniendo un teléfono",
     description: "Figura decorativa de fantasma en pose selfie.",
@@ -83,7 +88,8 @@ const products = [
     id: "09",
     name: "Fantasma tímido",
     category: "decoracion",
-    categoryLabel: "Decoración",
+    categoryLabel: "Navidad / Halloween",
+    tags: ["navidad-halloween"],
     image: "img_asset/FasntasmaTimido.webp",
     alt: "Figura decorativa de fantasma en pose tímida",
     description: "Figura de fantasma en pose tímida, impresa en 3D.",
@@ -93,7 +99,8 @@ const products = [
     id: "10",
     name: "Fantasma vista trasera",
     category: "decoracion",
-    categoryLabel: "Decoración",
+    categoryLabel: "Navidad / Halloween",
+    tags: ["navidad-halloween"],
     image: "img_asset/FasntasmaTrasero.webp",
     alt: "Figura de fantasma decorativa vista desde atrás",
     description: "Otra pose de la colección de fantasmas decorativos.",
@@ -104,6 +111,7 @@ const products = [
     name: "Propulsor Finger Flick",
     category: "accesorios",
     categoryLabel: "Juguetes",
+    tags: ["juguetes"],
     image: "img_asset/FingerFlick.webp",
     alt: "Juguete propulsor Finger Flick impreso en 3D",
     description: "Pequeño juguete propulsor para lanzar con los dedos.",
@@ -114,6 +122,7 @@ const products = [
     name: "Flick Spin",
     category: "accesorios",
     categoryLabel: "Juguetes",
+    tags: ["juguetes"],
     image: "img_asset/FlickSpin.webp",
     alt: "Juguete giratorio Flick Spin impreso en 3D",
     description: "Juguete de escritorio que gira al impulsarlo con los dedos.",
@@ -123,7 +132,8 @@ const products = [
     id: "13",
     name: "Florero navideño",
     category: "decoracion",
-    categoryLabel: "Decoración",
+    categoryLabel: "Navidad / Halloween",
+    tags: ["navidad-halloween"],
     image: "img_asset/FloreroNavidad.jpg",
     alt: "Floreros decorativos con motivos de copos de nieve",
     description: "Florero decorativo con motivos de invierno.",
@@ -143,7 +153,8 @@ const products = [
     id: "15",
     name: "Gato porta rollo",
     category: "utilidad",
-    categoryLabel: "Organización",
+    categoryLabel: "Soportes",
+    tags: ["soportes"],
     image: "img_asset/GatoJugandoSoporteDeco.webp",
     alt: "Figura de gato que sostiene un rollo de papel",
     description: "Figura de gato que funciona como soporte para un rollo de papel.",
@@ -213,7 +224,8 @@ const products = [
     id: "22",
     name: "Pesebre",
     category: "decoracion",
-    categoryLabel: "Decoración",
+    categoryLabel: "Navidad / Halloween",
+    tags: ["navidad-halloween"],
     image: "img_asset/Pecebre.jpg",
     alt: "Pesebre navideño impreso en 3D",
     description: "Pesebre decorativo impreso en 3D.",
@@ -253,7 +265,8 @@ const products = [
     id: "26",
     name: "Adornos para árbol",
     category: "decoracion",
-    categoryLabel: "Decoración",
+    categoryLabel: "Navidad / Halloween",
+    tags: ["navidad-halloween"],
     image: "img_asset/SetNavidadDecoArbol.webp",
     alt: "Set de adornos navideños para colgar en el árbol",
     description: "Set de adornos decorativos para el árbol de Navidad.",
@@ -263,7 +276,8 @@ const products = [
     id: "27",
     name: "Figuras navideñas",
     category: "decoracion",
-    categoryLabel: "Decoración",
+    categoryLabel: "Navidad / Halloween",
+    tags: ["navidad-halloween"],
     image: "img_asset/SetNavidadMuñecosDeco.webp",
     alt: "Set de figuras navideñas impresas en 3D",
     description: "Figuras decorativas navideñas impresas en 3D.",
@@ -284,6 +298,7 @@ const products = [
     name: "Soporte de celular corazón",
     category: "utilidad",
     categoryLabel: "Soportes",
+    tags: ["soportes"],
     image: "img_asset/SoporteCeluCorazon.webp",
     alt: "Soporte para celular con forma de corazón",
     description: "Soporte de escritorio para celular con forma de corazón.",
@@ -293,7 +308,8 @@ const products = [
     id: "30",
     name: "Porta cepillo dental",
     category: "utilidad",
-    categoryLabel: "Organización",
+    categoryLabel: "Soportes",
+    tags: ["soportes"],
     image: "img_asset/SoporteDienteCepillo.jpg",
     alt: "Soporte con forma de diente para un cepillo dental",
     description: "Soporte con forma de diente para guardar un cepillo dental.",
@@ -304,6 +320,7 @@ const products = [
     name: "Soporte universal de escritorio",
     category: "utilidad",
     categoryLabel: "Soportes",
+    tags: ["soportes"],
     image: "img_asset/SoporteEscritorioUniversal.webp",
     alt: "Soporte universal ajustable para escritorio",
     description: "Soporte ajustable para sujetar objetos en el escritorio.",
@@ -313,7 +330,8 @@ const products = [
     id: "32",
     name: "Varita mágica calabaza",
     category: "accesorios",
-    categoryLabel: "Juguetes",
+    categoryLabel: "Navidad / Halloween",
+    tags: ["juguetes", "navidad-halloween"],
     image: "img_asset/VaritaMagicaCalabaza.webp",
     alt: "Varita flexible con una calabaza en la punta",
     description: "Varita flexible decorada con una calabaza.",
@@ -326,6 +344,12 @@ const currency = new Intl.NumberFormat("es-AR", {
   currency: "ARS",
   maximumFractionDigits: 0,
 });
+
+const filterLabels = {
+  juguetes: "Juguetes",
+  "navidad-halloween": "Navidad / Halloween",
+  soportes: "Soportes",
+};
 
 const productGrid = document.querySelector("#product-grid");
 const searchInput = document.querySelector("#product-search");
@@ -344,8 +368,9 @@ function formatPrice(price) {
 function renderProducts() {
   const query = searchInput.value.trim().toLocaleLowerCase("es-AR");
   const visibleProducts = products.filter((product) => {
-    const matchesFilter = activeFilter === "todos" || product.category === activeFilter;
-    const matchesSearch = `${product.name} ${product.categoryLabel}`.toLocaleLowerCase("es-AR").includes(query);
+    const matchesFilter = activeFilter === "todos" || product.category === activeFilter || product.tags?.includes(activeFilter);
+    const searchText = [product.name, product.categoryLabel, ...(product.tags || []).map((tag) => filterLabels[tag])].join(" ").toLocaleLowerCase("es-AR");
+    const matchesSearch = searchText.includes(query);
     return matchesFilter && matchesSearch;
   });
 
