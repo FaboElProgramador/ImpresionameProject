@@ -344,6 +344,7 @@ const currency = new Intl.NumberFormat("es-AR", {
   currency: "ARS",
   maximumFractionDigits: 0,
 });
+const whatsappNumber = "5491130539016";
 
 const filterLabels = {
   decoracion: "Decoración",
@@ -373,10 +374,8 @@ const emptyState = document.querySelector("#empty-state");
 const resultCount = document.querySelector("#result-count");
 const filterButtons = [...filterList.querySelectorAll(".filter-button")];
 const productDialog = document.querySelector("#product-dialog");
-const toast = document.querySelector("#toast");
 let activeFilter = "todos";
 let selectedProduct = null;
-let toastTimer;
 
 function formatPrice(price) {
   return price === null ? "Consultar precio" : currency.format(price);
@@ -430,14 +429,9 @@ function openProduct(productId) {
   document.querySelector("#dialog-title").textContent = selectedProduct.name;
   document.querySelector("#dialog-description").textContent = selectedProduct.description;
   document.querySelector("#dialog-price").textContent = formatPrice(selectedProduct.price);
+  const message = `Hola, quiero consultar por ${selectedProduct.name}.`;
+  document.querySelector("#whatsapp-inquiry").href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
   productDialog.showModal();
-}
-
-function showToast(message) {
-  toast.textContent = message;
-  toast.classList.add("is-visible");
-  window.clearTimeout(toastTimer);
-  toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 2600);
 }
 
 filterButtons.forEach((button) => {
@@ -460,18 +454,6 @@ productGrid.addEventListener("click", (event) => {
 });
 
 document.querySelector("#dialog-close").addEventListener("click", () => productDialog.close());
-
-document.querySelector("#copy-inquiry").addEventListener("click", async () => {
-  if (!selectedProduct) return;
-  const message = `Hola, quiero consultar por ${selectedProduct.name}.`;
-
-  try {
-    await navigator.clipboard.writeText(message);
-    showToast("Consulta copiada. El contacto se conecta mas adelante.");
-  } catch {
-    window.prompt("Copia tu consulta:", message);
-  }
-});
 
 productDialog.addEventListener("click", (event) => {
   if (event.target === productDialog) productDialog.close();
