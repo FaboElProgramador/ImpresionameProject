@@ -346,16 +346,32 @@ const currency = new Intl.NumberFormat("es-AR", {
 });
 
 const filterLabels = {
+  decoracion: "Decoración",
+  utilidad: "Utilidad",
+  accesorios: "Accesorios",
   juguetes: "Juguetes",
   navidad: "Navidad",
   halloween: "Halloween",
   soportes: "Soportes",
 };
 
+const filterList = document.querySelector(".filter-list");
+const productCategories = new Set(products.flatMap((product) => [product.category, ...(product.tags || [])]));
+const filterOptions = [
+  { id: "todos", label: "Todo" },
+  ...Object.entries(filterLabels)
+    .filter(([id]) => productCategories.has(id))
+    .map(([id, label]) => ({ id, label })),
+];
+filterList.innerHTML = filterOptions.map((filter, index) => `
+  <button class="filter-button${index === 0 ? " is-active" : ""}" type="button" data-filter="${filter.id}" aria-pressed="${index === 0}">${filter.label}</button>
+`).join("");
+
 const productGrid = document.querySelector("#product-grid");
 const searchInput = document.querySelector("#product-search");
 const emptyState = document.querySelector("#empty-state");
-const filterButtons = [...document.querySelectorAll(".filter-button")];
+const resultCount = document.querySelector("#result-count");
+const filterButtons = [...filterList.querySelectorAll(".filter-button")];
 const productDialog = document.querySelector("#product-dialog");
 const toast = document.querySelector("#toast");
 let activeFilter = "todos";
@@ -370,11 +386,12 @@ function renderProducts() {
   const query = searchInput.value.trim().toLocaleLowerCase("es-AR");
   const visibleProducts = products.filter((product) => {
     const matchesFilter = activeFilter === "todos" || product.category === activeFilter || product.tags?.includes(activeFilter);
-    const searchText = [product.name, product.categoryLabel, ...(product.tags || []).map((tag) => filterLabels[tag])].join(" ").toLocaleLowerCase("es-AR");
+    const searchText = [product.name, product.categoryLabel, filterLabels[product.category], ...(product.tags || []).map((tag) => filterLabels[tag])].join(" ").toLocaleLowerCase("es-AR");
     const matchesSearch = searchText.includes(query);
     return matchesFilter && matchesSearch;
   });
 
+  resultCount.textContent = `${visibleProducts.length} ${visibleProducts.length === 1 ? "pieza" : "piezas"}`;
   productGrid.innerHTML = visibleProducts.map((product) => `
     <article class="product-card">
       <div class="product-image-wrap">
