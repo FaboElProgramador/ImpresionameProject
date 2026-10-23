@@ -466,6 +466,19 @@ h1 span {
   background: #252821;
 }
 
+.product-image-trigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.product-image-trigger:focus-visible {
+  outline-offset: -4px;
+}
+
 .product-image {
   display: block;
   width: 100%;
@@ -767,6 +780,7 @@ h1 span {
 }
 
 .gallery-figure {
+  grid-column: 2;
   min-width: 0;
   margin: 0;
   text-align: center;
@@ -775,6 +789,7 @@ h1 span {
 .gallery-image {
   display: block;
   width: 100%;
+  height: auto;
   max-height: min(78vh, 760px);
   object-fit: contain;
 }
@@ -804,6 +819,10 @@ h1 span {
   transition: border-color 150ms ease, color 150ms ease;
 }
 
+.gallery-next {
+  grid-column: 3;
+}
+
 .gallery-arrow:hover {
   border-color: var(--acid);
   color: var(--acid);
@@ -831,16 +850,7 @@ h1 span {
   line-height: 1;
 }
 
-.dialog-image-trigger {
-  display: block;
-  width: 100%;
-  padding: 0;
-  border: 0;
-  background: var(--ink-soft);
-  cursor: zoom-in;
-}
-
-.dialog-image-trigger[hidden] {
+.dialog-image[hidden] {
   display: none;
 }
 
@@ -852,11 +862,6 @@ h1 span {
   aspect-ratio: auto;
   object-fit: contain;
   background: var(--ink-soft);
-}
-
-.dialog-image-trigger:focus-visible {
-  outline: 2px solid var(--cyan);
-  outline-offset: -4px;
 }
 
 .dialog-image-placeholder[hidden] {
