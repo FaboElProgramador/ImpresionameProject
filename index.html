@@ -28,6 +28,7 @@
       </a>
       <nav class="main-nav" aria-label="Navegación principal">
         <a href="#productos">Productos</a>
+        <a href="#personalizacion">Personalización</a>
         <a href="#proceso">El proceso</a>
       </nav>
     </header>
@@ -71,9 +72,22 @@
         <p class="empty-state" id="empty-state" hidden>No encontramos piezas con esa búsqueda.</p>
       </section>
 
+      <section class="customization-band" id="personalizacion" aria-labelledby="customization-title">
+        <div class="section-wrap customization-inner">
+          <div>
+            <p class="eyebrow">UNA IDEA A TU MEDIDA <span class="eyebrow-slash">/ 02</span></p>
+            <h2 id="customization-title">¿Buscás algo <span>distinto?</span></h2>
+          </div>
+          <div class="customization-content">
+            <p>¿Tenés una pieza que querés reemplazar, una foto de algo que te gustaría convertir en un objeto 3D o un archivo listo para imprimir? Traé tu idea: podemos darle forma e imprimirla para vos.</p>
+            <a class="button button-primary" href="https://wa.me/5491130539016?text=Hola%2C%20quiero%20consultar%20por%20una%20personalizaci%C3%B3n." target="_blank" rel="noopener noreferrer">Consultar personalización <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </section>
+
       <section class="process-band" id="proceso" aria-labelledby="process-title">
         <div class="section-wrap process-inner">
-          <p class="eyebrow">DE LA IDEA A LA PIEZA <span class="eyebrow-slash">/ 02</span></p>
+          <p class="eyebrow">DE LA IDEA A LA PIEZA <span class="eyebrow-slash">/ 03</span></p>
           <div class="process-content">
             <h2 id="process-title">Probadas en el taller.<br><span>Listas para vos.</span></h2>
             <p>Arrancamos con una selección corta de productos que ya imprimimos y testeamos. Consultanos por colores, disponibilidad y pedidos personalizados.</p>
@@ -95,15 +109,46 @@
 
     <dialog class="product-dialog" id="product-dialog" aria-labelledby="dialog-title">
       <button class="dialog-close" id="dialog-close" type="button" aria-label="Cerrar detalle">×</button>
-      <img class="dialog-image" id="dialog-image" src="" alt="">
+      <button class="dialog-image-trigger" id="dialog-image-trigger" type="button" aria-label="Ampliar foto del producto">
+        <img class="dialog-image" id="dialog-image" src="" alt="">
+      </button>
       <div class="dialog-image-placeholder" id="dialog-image-placeholder" hidden aria-label="Foto pendiente"></div>
       <div class="dialog-copy">
         <p class="eyebrow" id="dialog-category"></p>
         <h2 id="dialog-title"></h2>
         <p class="dialog-description" id="dialog-description"></p>
+        <p class="dialog-options" id="dialog-options"></p>
+        <div class="dialog-choices" id="dialog-choices">
+          <label for="product-size">Tamaño (alto)
+            <select id="product-size">
+              <option value="5 cm">5 cm</option>
+              <option value="10 cm">10 cm</option>
+              <option value="15 cm">15 cm</option>
+            </select>
+          </label>
+          <label for="product-color">Color
+            <select id="product-color">
+              <option value="blanco">Blanco</option>
+              <option value="negro">Negro</option>
+              <option value="gris">Gris</option>
+            </select>
+          </label>
+        </div>
         <p class="dialog-price" id="dialog-price"></p>
         <a class="button button-primary whatsapp-button" id="whatsapp-inquiry" href="https://wa.me/5491130539016" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp <span aria-hidden="true">↗</span></a>
         <p class="dialog-hint">WhatsApp se abrirá con la consulta lista para enviar.</p>
+      </div>
+    </dialog>
+
+    <dialog class="image-gallery" id="image-gallery" aria-label="Galería de fotos del producto">
+      <button class="dialog-close gallery-close" id="gallery-close" type="button" aria-label="Cerrar galería">×</button>
+      <div class="gallery-content">
+        <button class="gallery-arrow" id="gallery-previous" type="button" aria-label="Ver foto anterior">‹</button>
+        <figure class="gallery-figure">
+          <img class="gallery-image" id="gallery-image" src="" alt="">
+          <figcaption class="gallery-counter" id="gallery-counter" aria-live="polite"></figcaption>
+        </figure>
+        <button class="gallery-arrow" id="gallery-next" type="button" aria-label="Ver foto siguiente">›</button>
       </div>
     </dialog>
   </body>

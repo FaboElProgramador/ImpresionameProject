@@ -16,7 +16,7 @@ const products = [
     categoryLabel: "Decoración",
     image: "img_asset/macetareno.jpg",
     alt: "Maceta decorativa con forma de reno",
-    description: "Maceta con forma de reno y nariz roja. El modelo y sus dimensiones se pueden confirmar al consultar.",
+    description: "Maceta decorativa con forma de reno y nariz roja.",
     price: null,
   },
   {
@@ -35,9 +35,10 @@ const products = [
     name: "Llavero casco",
     category: "accesorios",
     categoryLabel: "Accesorios",
+    productType: "Llavero",
     image: "img_asset/LlaveroCascoMoto.jpg",
     alt: "Cuatro llaveros impresos en 3D con forma de casco",
-    description: "Llavero de casco impreso en varios colores. Consultanos por los tonos disponibles.",
+    description: "Llavero impreso en 3D con forma de casco.",
     price: null,
   },
   {
@@ -59,7 +60,7 @@ const products = [
     tags: ["navidad"],
     image: "img_asset/ArbolNavidadDeco.webp",
     alt: "Árboles decorativos navideños impresos en 3D",
-    description: "Árboles decorativos navideños en distintos tamaños y colores.",
+    description: "Árboles decorativos navideños impresos en 3D.",
     price: null,
   },
   {
@@ -165,6 +166,7 @@ const products = [
     name: "Llavero flexi berenjena",
     category: "accesorios",
     categoryLabel: "Accesorios",
+    productType: "Llavero",
     image: "img_asset/LlaveroFlexiBerenjena.jpg",
     alt: "Llavero articulado con forma de berenjena",
     description: "Llavero articulado con forma de berenjena.",
@@ -175,6 +177,7 @@ const products = [
     name: "Llavero flexi chili",
     category: "accesorios",
     categoryLabel: "Accesorios",
+    productType: "Llavero",
     image: "img_asset/LlaveroFlexiChilli.jpg",
     alt: "Llavero articulado con forma de chile",
     description: "Llavero articulado con forma de chile.",
@@ -185,6 +188,7 @@ const products = [
     name: "Llaveros luna pareja",
     category: "accesorios",
     categoryLabel: "Accesorios",
+    productType: "Llavero",
     image: "img_asset/LlaveroParejaAmigosLunar.jpg",
     alt: "Par de llaveros que forman una luna al juntarse",
     description: "Par de llaveros lunares que se complementan al juntarse.",
@@ -258,7 +262,7 @@ const products = [
     categoryLabel: "Personalizables",
     image: "img_asset/SetLetrasBubble.webp",
     alt: "Letras tridimensionales estilo bubble impresas en 3D",
-    description: "Letras tridimensionales estilo bubble para decorar o personalizar.",
+    description: "Letras tridimensionales estilo bubble para decorar.",
     price: null,
   },
   {
@@ -290,7 +294,7 @@ const products = [
     categoryLabel: "Personalizables",
     image: "img_asset/SetNumeros.webp",
     alt: "Set de números de colores impresos en 3D",
-    description: "Números tridimensionales en varios colores.",
+    description: "Números tridimensionales impresos en 3D.",
     price: null,
   },
   {
@@ -345,6 +349,7 @@ const currency = new Intl.NumberFormat("es-AR", {
   maximumFractionDigits: 0,
 });
 const whatsappNumber = "5491130539016";
+const standardOptions = "Medidas: 5, 10 o 15 cm de alto. Colores base: blanco, negro o gris.";
 
 const filterLabels = {
   decoracion: "Decoración",
@@ -374,8 +379,15 @@ const emptyState = document.querySelector("#empty-state");
 const resultCount = document.querySelector("#result-count");
 const filterButtons = [...filterList.querySelectorAll(".filter-button")];
 const productDialog = document.querySelector("#product-dialog");
+const imageGallery = document.querySelector("#image-gallery");
 let activeFilter = "todos";
 let selectedProduct = null;
+let activeGalleryImages = [];
+let activeGalleryIndex = 0;
+
+function getProductImages(product) {
+  return product.images || (product.image ? [product.image] : []);
+}
 
 function formatPrice(price) {
   return price === null ? "Consultar precio" : currency.format(price);
@@ -397,7 +409,7 @@ function renderProducts() {
         ${product.image
           ? `<img class="product-image" src="${product.image}" alt="${product.alt}" loading="lazy">`
           : `<div class="product-placeholder" role="img" aria-label="${product.alt}"><span>FOTO PENDIENTE</span><strong>${product.id}</strong></div>`}
-        <span class="product-tag">${product.categoryLabel}</span>
+        <span class="product-tag${product.productType ? " product-tag-type" : ""}">${product.productType || product.categoryLabel}</span>
       </div>
       <div class="product-info">
         <div class="product-meta"><span>IMPRESION 3D</span><span class="product-code">N.${product.id}</span></div>
@@ -417,21 +429,68 @@ function openProduct(productId) {
   selectedProduct = products.find((product) => product.id === productId);
   if (!selectedProduct) return;
 
+  document.querySelector("#product-size").value = "5 cm";
+  document.querySelector("#product-color").value = "blanco";
   const dialogImage = document.querySelector("#dialog-image");
+  const dialogImageTrigger = document.querySelector("#dialog-image-trigger");
   const dialogImagePlaceholder = document.querySelector("#dialog-image-placeholder");
-  dialogImage.hidden = !selectedProduct.image;
-  dialogImagePlaceholder.hidden = Boolean(selectedProduct.image);
-  if (selectedProduct.image) {
-    dialogImage.src = selectedProduct.image;
+  const productImages = getProductImages(selectedProduct);
+  dialogImageTrigger.hidden = productImages.length === 0;
+  dialogImagePlaceholder.hidden = productImages.length > 0;
+  if (productImages.length > 0) {
+    dialogImage.src = productImages[0];
     dialogImage.alt = selectedProduct.alt;
+    dialogImageTrigger.setAttribute("aria-label", `Ampliar foto de ${selectedProduct.name}`);
   }
   document.querySelector("#dialog-category").textContent = `IMPRESION 3D / ${selectedProduct.categoryLabel.toUpperCase()}`;
   document.querySelector("#dialog-title").textContent = selectedProduct.name;
   document.querySelector("#dialog-description").textContent = selectedProduct.description;
+  document.querySelector("#dialog-options").textContent = selectedProduct.productType === "Llavero"
+    ? "Medida única: 7 cm."
+    : `${standardOptions} Otros colores, según disponibilidad.`;
+  document.querySelector("#dialog-choices").hidden = selectedProduct.productType === "Llavero";
   document.querySelector("#dialog-price").textContent = formatPrice(selectedProduct.price);
-  const message = `Hola, quiero consultar por ${selectedProduct.name}.`;
-  document.querySelector("#whatsapp-inquiry").href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  updateProductInquiry();
   productDialog.showModal();
+}
+
+function renderGalleryImage() {
+  const image = activeGalleryImages[activeGalleryIndex];
+  const galleryImage = document.querySelector("#gallery-image");
+  galleryImage.src = image;
+  galleryImage.alt = `${selectedProduct.name}, foto ${activeGalleryIndex + 1}`;
+
+  const hasMultipleImages = activeGalleryImages.length > 1;
+  document.querySelector("#gallery-previous").hidden = !hasMultipleImages;
+  document.querySelector("#gallery-next").hidden = !hasMultipleImages;
+  const counter = document.querySelector("#gallery-counter");
+  counter.hidden = !hasMultipleImages;
+  counter.textContent = hasMultipleImages ? `${activeGalleryIndex + 1} / ${activeGalleryImages.length}` : "";
+}
+
+function openImageGallery() {
+  if (!selectedProduct) return;
+  activeGalleryImages = getProductImages(selectedProduct);
+  if (activeGalleryImages.length === 0) return;
+
+  activeGalleryIndex = 0;
+  renderGalleryImage();
+  imageGallery.showModal();
+}
+
+function moveGallery(direction) {
+  if (activeGalleryImages.length < 2) return;
+  activeGalleryIndex = (activeGalleryIndex + direction + activeGalleryImages.length) % activeGalleryImages.length;
+  renderGalleryImage();
+}
+
+function updateProductInquiry() {
+  if (!selectedProduct) return;
+
+  const message = selectedProduct.productType === "Llavero"
+    ? `Hola, quiero consultar por ${selectedProduct.name}, de medida única de 7 cm.`
+    : `Hola, quiero consultar por ${selectedProduct.name} en tamaño ${document.querySelector("#product-size").value} de alto y color ${document.querySelector("#product-color").value}.`;
+  document.querySelector("#whatsapp-inquiry").href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
 filterButtons.forEach((button) => {
@@ -447,10 +506,24 @@ filterButtons.forEach((button) => {
 });
 
 searchInput.addEventListener("input", renderProducts);
+document.querySelector("#product-size").addEventListener("change", updateProductInquiry);
+document.querySelector("#product-color").addEventListener("change", updateProductInquiry);
 
 productGrid.addEventListener("click", (event) => {
   const button = event.target.closest("[data-product-id]");
   if (button) openProduct(button.dataset.productId);
+});
+
+document.querySelector("#dialog-image-trigger").addEventListener("click", openImageGallery);
+document.querySelector("#gallery-close").addEventListener("click", () => imageGallery.close());
+document.querySelector("#gallery-previous").addEventListener("click", () => moveGallery(-1));
+document.querySelector("#gallery-next").addEventListener("click", () => moveGallery(1));
+imageGallery.addEventListener("click", (event) => {
+  if (event.target === imageGallery) imageGallery.close();
+});
+imageGallery.addEventListener("keydown", (event) => {
+  if (event.key === "ArrowLeft") moveGallery(-1);
+  if (event.key === "ArrowRight") moveGallery(1);
 });
 
 document.querySelector("#dialog-close").addEventListener("click", () => productDialog.close());
