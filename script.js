@@ -454,7 +454,7 @@ const products = [
     category: "accesorios",
     categoryLabel: "Juguetes",
     tags: ["juguetes"],
-    images: ["img/monito.jpeg", "img/Equilbrio monitos.webp", "img/EquilibrioMonitos.webp"],
+    images: ["img/monito.jpeg", "img/Equilbrio monitos.webp"],
     alt: "Juego de equilibrio con monitos y piezas impresas en 3D",
     description: "Juego de equilibrio y destreza con monitos y piezas de colores.",
     price: null,
@@ -560,6 +560,9 @@ const resultCount = document.querySelector("#result-count");
 const filterButtons = [...filterList.querySelectorAll(".filter-button")];
 const productDialog = document.querySelector("#product-dialog");
 const imageGallery = document.querySelector("#image-gallery");
+const customerGrid = document.querySelector("#customer-grid");
+const customerPrevious = document.querySelector("#customer-previous");
+const customerNext = document.querySelector("#customer-next");
 let activeFilter = "todos";
 let selectedProduct = null;
 let activeGalleryProduct = null;
@@ -664,6 +667,19 @@ function moveGallery(direction) {
   renderGalleryImage();
 }
 
+function updateCustomerArrows() {
+  customerPrevious.disabled = customerGrid.scrollLeft <= 1;
+  customerNext.disabled = customerGrid.scrollLeft + customerGrid.clientWidth >= customerGrid.scrollWidth - 1;
+}
+
+function scrollCustomerGallery(direction) {
+  const card = customerGrid.querySelector(".customer-card");
+  if (!card) return;
+
+  const gap = Number.parseFloat(getComputedStyle(customerGrid).gap) || 0;
+  customerGrid.scrollBy({ left: direction * (card.getBoundingClientRect().width + gap), behavior: "smooth" });
+}
+
 function updateProductInquiry() {
   if (!selectedProduct) return;
 
@@ -711,6 +727,11 @@ imageGallery.addEventListener("keydown", (event) => {
   if (event.key === "ArrowRight") moveGallery(1);
 });
 
+customerPrevious.addEventListener("click", () => scrollCustomerGallery(-1));
+customerNext.addEventListener("click", () => scrollCustomerGallery(1));
+customerGrid.addEventListener("scroll", updateCustomerArrows, { passive: true });
+window.addEventListener("resize", updateCustomerArrows);
+
 document.querySelector("#dialog-close").addEventListener("click", () => productDialog.close());
 
 productDialog.addEventListener("click", (event) => {
@@ -718,3 +739,4 @@ productDialog.addEventListener("click", (event) => {
 });
 
 renderProducts();
+updateCustomerArrows();
