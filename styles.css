@@ -71,6 +71,17 @@ input:focus-visible {
   transform: translateY(0);
 }
 
+main > .scroll-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 700ms ease, transform 900ms ease;
+}
+
+main > .scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .site-header,
 .site-footer {
   display: flex;

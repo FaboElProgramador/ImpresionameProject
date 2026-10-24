@@ -738,5 +738,23 @@ productDialog.addEventListener("click", (event) => {
   if (event.target === productDialog) productDialog.close();
 });
 
+const revealSections = document.querySelectorAll("main > section:not(.hero)");
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if ("IntersectionObserver" in window && !prefersReducedMotion) {
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      entry.target.classList.toggle("is-visible", entry.isIntersecting);
+    });
+  }, {
+    threshold: 0,
+    rootMargin: "0px 0px -10% 0px",
+  });
+
+  revealSections.forEach((section) => {
+    section.classList.add("scroll-reveal");
+    sectionObserver.observe(section);
+  });
+}
+
 renderProducts();
 updateCustomerArrows();
